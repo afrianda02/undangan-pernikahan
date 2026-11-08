@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="360" viewBox="0 0 260 360">
+  <g fill="none" stroke="#b08d57" stroke-width="2" opacity="0.16">
+    <!-- conical mountain body -->
+    <path d="M130 12 L230 150 L200 340 L60 340 L30 150 Z"/>
+    <!-- inner frame -->
+    <path d="M130 40 L205 150 L180 320 L80 320 L55 150 Z"/>
+    <!-- kala head (top center) -->
+    <circle cx="130" cy="95" r="26"/>
+    <path d="M104 95 Q130 60 156 95"/>
+    <circle cx="118" cy="90" r="3" fill="#b08d57"/>
+    <circle cx="142" cy="90" r="3" fill="#b08d57"/>
+    <!-- tree of life trunk -->
+    <path d="M130 125 L130 290"/>
+    <!-- branches -->
+    <path d="M130 160 Q95 145 75 175"/>
+    <path d="M130 160 Q165 145 185 175"/>
+    <path d="M130 200 Q100 190 85 215"/>
+    <path d="M130 200 Q160 190 175 215"/>
+    <!-- gate at bottom -->
+    <rect x="95" y="290" width="70" height="30" rx="4"/>
+    <path d="M95 290 L130 270 L165 290"/>
+  </g>
+  <g fill="#8b5a2b" opacity="0.10">
+    <circle cx="130" cy="95" r="16"/>
+  </g>
+</svg>

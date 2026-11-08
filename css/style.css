@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap');
+
+:root {
+  --pink-50: #fdf2f6;
+  --pink-100: #fce7ef;
+  --pink-200: #f9cfe0;
+  --pink-300: #f4a7c3;
+  --pink-400: #ec7fa6;
+  --pink-500: #e15a8a;
+  --pink-600: #c93a72;
+  --pink-700: #a32a5a;
+  --matcha-100: #eaf2e6;
+  --matcha-300: #c9ddc0;
+  --matcha-500: #8fb083;
+  --cream: #faf7f2;
+}
+
+body { font-family: 'Inter', sans-serif; background: var(--cream); color: #292524; }
+.font-serif { font-family: 'Playfair Display', serif; }
+.font-script { font-family: 'Dancing Script', cursive; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: fadeIn .8s ease both; }
+
+.section-title { font-family: 'Playfair Display', serif; }
+.btn-primary { background: var(--pink-500); color: #fff; transition: background .2s, transform .2s; }
+.btn-primary:hover { background: var(--pink-600); transform: translateY(-1px); }
+.card { background: #fff; border-radius: 1rem; box-shadow: 0 8px 24px rgba(225,90,138,.08); }
+
+/* Mobile full-screen slides */
+@media (max-width: 768px) {
+  .snap-container { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  .snap-section { min-height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; }
+  .snap-section .inner { width: 100%; }
+}
+@media (min-width: 769px) {
+  .snap-container { height: auto; overflow: visible; }
+  .snap-section { min-height: auto; }
+}
+
+/* section reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* dots navigator */
+.motif-padang { background-image: url('../assets/patterns/padang.svg'); background-repeat: repeat; background-size: 80px 80px; }
+.motif-jawa { background-image: url('../assets/patterns/jawa.svg'); background-repeat: repeat; background-size: 80px 80px; }
+.motif-mix { background-image: url('../assets/patterns/padang.svg'), url('../assets/patterns/jawa.svg'); background-repeat: repeat, repeat; background-size: 80px 80px, 100px 100px; background-position: 0 0, 40px 40px; }
+.watermark { position: absolute; inset: 0; pointer-events: none; opacity: 0.5; z-index: 0; }
+.watermark > * { position: relative; z-index: 1; }
+.gunungan-center { background-image: url('../assets/patterns/gunungan1.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.18; }
+.itik-sides { position: absolute; inset: 0; pointer-events: none; }
+.itik-sides::before, .itik-sides::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 60px;
+  background-image: url('../assets/patterns/pucuk rebung_rotated.jpeg');
+  background-repeat: repeat-y; background-size: 60px auto;
+  filter: grayscale(1) invert(1) contrast(1.6); opacity: 0.3;
+}
+.itik-sides::before { left: 0; }
+.itik-sides::after { right: 0; transform: scaleX(-1); }
+
+.dots-nav { position: fixed; right: 12px; top: 50%; transform: translateY(-50%); z-index: 50; display: none; flex-direction: column; gap: 8px; }
+@media (max-width: 768px) { .dots-nav { display: flex; } }
+.dot { width: 8px; height: 8px; border-radius: 9999px; background: rgba(225,90,138,.35); transition: all .2s; cursor: pointer; border: none; padding: 0; }
+.dot.active { background: #e15a8a; height: 24px; }

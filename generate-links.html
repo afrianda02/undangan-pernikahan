@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generator Link Undangan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-stone-100 text-stone-800 antialiased p-6">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="font-serif text-3xl mb-2">Generator Link Personal</h1>
+    <p class="text-stone-500 mb-6">Masukkan daftar nama tamu (satu per baris), lalu generate link undangan personal.</p>
+
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Base URL undangan</label>
+        <input id="base" type="url" placeholder="https://domainmu.com/" value="https://domainmu.com/"
+          class="w-full border rounded px-3 py-2" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Daftar nama tamu (satu per baris)</label>
+        <textarea id="names" rows="8" placeholder="Budi Santoso&#10;Siti Aminah&#10;Ibu Siti & Bpk. Ahmad"
+          class="w-full border rounded px-3 py-2 font-mono text-sm"></textarea>
+      </div>
+      <button onclick="generate()" class="px-6 py-2 bg-stone-800 text-white rounded-full text-sm hover:bg-stone-700">Generate Link</button>
+    </div>
+
+    <div id="out" class="mt-8 hidden">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="font-serif text-xl">Hasil</h2>
+        <button onclick="copyAll()" class="text-sm px-3 py-1 border rounded hover:bg-stone-200">Salin Semua</button>
+      </div>
+      <div id="list" class="space-y-2"></div>
+    </div>
+  </div>
+
+  <script>
+    function encodeName(name) {
+      return encodeURIComponent(name.trim()).replace(/%20/g, "+");
+    }
+    function generate() {
+      const base = document.getElementById("base").value.trim().replace(/\/+$/, "") + "/";
+      const names = document.getElementById("names").value.split("\n").map(n => n.trim()).filter(Boolean);
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      names.forEach((name, i) => {
+        const url = base + "?to=" + encodeName(name);
+        const row = document.createElement("div");
+        row.className = "flex items-center gap-2 bg-white rounded-lg p-3 shadow-sm";
+        row.innerHTML = `
+          <span class="text-sm text-stone-500 w-6">${i + 1}.</span>
+          <span class="font-medium flex-1 truncate">${name}</span>
+          <input readonly value="${url}" class="flex-[2] border rounded px-2 py-1 text-xs font-mono" />
+          <button class="px-3 py-1 bg-stone-800 text-white rounded text-xs hover:bg-stone-700" data-url="${url}">Salin</button>
+        `;
+        row.querySelector("button").addEventListener("click", (e) => {
+          navigator.clipboard.writeText(e.target.dataset.url);
+          e.target.textContent = "Tersalin!";
+          setTimeout(() => e.target.textContent = "Salin", 1200);
+        });
+        list.appendChild(row);
+      });
+      document.getElementById("out").classList.remove("hidden");
+    }
+    function copyAll() {
+      const inputs = document.querySelectorAll("#list input");
+      const text = Array.from(inputs).map(i => i.value).join("\n");
+      navigator.clipboard.writeText(text);
+      alert("Semua link disalin.");
+    }
+  </script>
+</body>
+</html>
